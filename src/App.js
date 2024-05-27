@@ -20,18 +20,18 @@ function App() {
     <div className="App">
       <Header />
       {pizzaData.map((pizza) => (
-        <Pizza name={pizza.name} src={pizza.src} />
+        <Pizza pizzaObj={pizza} name={pizza.name} src={pizza.src} />
       ))}
       <Developer />
     </div>
   );
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
   const hour = new Date().getHours();
   const open = 12;
   const close = 22;
-  console.log(hour);
+  console.log(pizzaObj);
   // check the current hour and if it is between 12 and 22 then it displays the pizza menu if not it hides the menu
   const isOpen = hour >= open && hour <= close;
   return (
@@ -39,11 +39,11 @@ function Pizza(props) {
       {isOpen ? (
         <div>
           <img
-            src={props.src}
+            src={pizzaObj.src}
             alt="cheese pizza"
             style={{ height: "300px", width: "400px" }}
           />
-          <h4>{props.name}</h4>
+          <h4>{pizzaObj.name}</h4>
         </div>
       ) : (
         <p>no items found</p>
