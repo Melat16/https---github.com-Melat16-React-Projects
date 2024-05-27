@@ -28,18 +28,26 @@ function App() {
 }
 
 function Pizza(props) {
-  const hour = new Date().getHours;
-  const open = 20;
+  const hour = new Date().getHours();
+  const open = 12;
   const close = 22;
+  console.log(hour);
+  // check the current hour and if it is between 12 and 22 then it displays the pizza menu if not it hides the menu
   const isOpen = hour >= open && hour <= close;
   return (
     <div className="Pizza-main">
-      <img
-        src={props.src}
-        alt="cheese pizza"
-        style={{ height: "300px", width: "400px" }}
-      />
-      <h4>{props.name}</h4>
+      {isOpen ? (
+        <div>
+          <img
+            src={props.src}
+            alt="cheese pizza"
+            style={{ height: "300px", width: "400px" }}
+          />
+          <h4>{props.name}</h4>
+        </div>
+      ) : (
+        <p>no items found</p>
+      )}
     </div>
   );
 }
