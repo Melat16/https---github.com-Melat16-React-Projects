@@ -18,16 +18,20 @@ const pizzaData = [
 function App() {
   return (
     <div className="App">
-      {/* <Header />
+      <Header />
       {pizzaData.map((pizza) => (
         <Pizza name={pizza.name} src={pizza.src} />
-      ))} */}
+      ))}
       <Developer />
     </div>
   );
 }
 
 function Pizza(props) {
+  const hour = new Date().getHours;
+  const open = 20;
+  const close = 22;
+  const isOpen = hour >= open && hour <= close;
   return (
     <div className="Pizza-main">
       <img
