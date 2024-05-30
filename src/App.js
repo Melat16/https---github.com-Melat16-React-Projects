@@ -1,92 +1,40 @@
 import "./App.css";
+import React, { useState } from "react";
 
-const pizzaData = [
-  {
-    name: "Cheese Pizza",
-    src: "./cheese-pizza.jpg",
-  },
-  {
-    name: "Pepperoni Pizza",
-    src: "./pepperoni-pizza.jpg",
-  },
-  {
-    name: "Veg Pizza",
-    src: "./veg-pizza.jpg",
-  },
-];
-
+const messages = ["first step", "second step", "third step"];
 function App() {
+  const [step, setStep] = useState(1);
+  const [isOpen, setOpen] = useState(true);
+  function Previous() {
+    if (step > 1) setStep(step - 1);
+  }
+  function Next() {
+    if (step < 3) setStep(step + 1);
+  }
   return (
-    <div className="App">
-      <Header />
-      {pizzaData.map((pizza) => (
-        <Pizza pizzaObj={pizza} name={pizza.name} src={pizza.src} />
-      ))}
-      <Developer />
-    </div>
-  );
-}
+    <>
+      <button onClick={() => setOpen(!isOpen)}>x</button>
+      {isOpen && (
+        <div className="steps">
+          <div className="numbers">
+            <div className={`${step >= 1 ? "active" : ""}`}>1</div>
+            <div className={`${step >= 2 ? "active" : ""}`}>2</div>
+            <div className={`${step >= 3 ? "active" : ""}`}>3</div>
+          </div>
 
-function Pizza({ pizzaObj }) {
-  const hour = new Date().getHours();
-  const open = 12;
-  const close = 22;
-  console.log(pizzaObj);
-  // check the current hour and if it is between 12 and 22 then it displays the pizza menu if not it hides the menu
-  const isOpen = hour >= open && hour <= close;
-  return (
-    <div className="Pizza-main">
-      {isOpen ? (
-        <div>
-          <img
-            src={pizzaObj.src}
-            alt="cheese pizza"
-            style={{ height: "300px", width: "400px" }}
-          />
-          <h4>{pizzaObj.name}</h4>
+          <p className="message">{messages[step - 1]}</p>
+          <div className="buttons">
+            <button style={{ backgroundColor: "green" }} onClick={Previous}>
+              Previous
+            </button>
+            <button style={{ backgroundColor: "green" }} onClick={Next}>
+              Next
+            </button>
+          </div>
         </div>
-      ) : (
-        <p>no items found</p>
       )}
-    </div>
+    </>
   );
 }
 
-function Header() {
-  return (
-    <div className="Header">
-      <h1 style={{ color: "red" }}>Our Menu</h1>
-    </div>
-  );
-}
-
-function Developer() {
-  return (
-    <div className="Developer_Profile">
-      <div>
-        <img
-          src="./pepperoni-pizza.jpg"
-          alt="cheese pizza"
-          style={{ height: "300px", width: "400px" }}
-        />
-      </div>
-
-      <div className="Content">
-        <h1>Jonas Walter </h1>
-        <p>
-          hi there jonas here please contact me for any development related
-          tasks i will be very happy to assist you!
-        </p>
-      </div>
-
-      <div className="Skills">
-        <h5 className="list">React</h5>
-        <h5 className="list">JavaScript</h5>
-        <h5 className="list">JavaScript</h5>
-        <h5 className="list">JavaScript</h5>
-        <h5 className="list">JavaScript</h5>
-      </div>
-    </div>
-  );
-}
 export default App;
